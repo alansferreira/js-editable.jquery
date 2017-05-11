@@ -12,7 +12,7 @@
     <div id="div1">
         <table>
             <tr>
-                <td class='editable-cell' data-editable-group='tb1'>cell1</td>
+                <td class='editable-cell' data-edt-auto-update="false" data-edt-on-commit="console.log('commit-cell1');" data-editable-group='tb1' >cell1</td>
                 <td class='editable-cell' data-editable-group='tb1'>cell2</td>
                 <td class='editable-cell' data-editable-group='tb1'>cell3</td>
             </tr>
@@ -25,7 +25,8 @@
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="./dist/js-editable.min.js"></script>
+    <!--<script src="./dist/js-editable.min.js"></script>-->
+    <script src="./js-editable.js"></script>
     <script>
         $(function () {
             $(".editable-cell").editable();
