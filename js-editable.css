@@ -1,0 +1,15 @@
+.editable-input-text{
+  position: absolute;
+  min-height: 10px;
+  min-width: 10px;
+  z-index: 1000;
+  padding: 0px;
+  margin: 0px;
+  border: none;
+}
+
+.editable{
+  padding-bottom: 1px;
+  border-bottom: dashed red 1px;
+  cursor: hand;
+}

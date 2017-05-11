@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./dist/js-editable.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="div1">
+        <table>
+            <tr>
+                <td class='editable-cell' data-editable-group='tb1'>cell1</td>
+                <td class='editable-cell' data-editable-group='tb1'>cell2</td>
+                <td class='editable-cell' data-editable-group='tb1'>cell3</td>
+            </tr>
+            <tr>
+                <td class='editable-cell' data-editable-group='tb1'>cell1</td>
+                <td class='editable-cell' data-editable-group='tb1'>cell2</td>
+                <td class='editable-cell' data-editable-group='tb1'>cell3</td>
+            </tr>
+        </table>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./dist/js-editable.min.js"></script>
+    <script>
+        $(function () {
+            $(".editable-cell").editable();
+        });
+    </script>
+</body>
+
+</html>
