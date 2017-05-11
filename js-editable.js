@@ -35,6 +35,7 @@ SOFTWARE.
     edtAutoMetrics: true, 
     edtInfiniteNavigation: true, 
     edtOnCommit: null,
+    edtInput: "<input type='text' class='editable-input-text'>"
   };
   
   var DATA_EDITABLE_SOURCE = 'editableSource';
@@ -47,28 +48,15 @@ SOFTWARE.
    */
   function editable(options) {
     
-    var $input = $("<input type='text' class='editable-input-text'>");
-    var $select = $("<select class='editable-select'>");
+    var _options = $.extend({}, defaultOptions, options);
+
+    var $input = $(_options.edtInput);
     
-    $(document.body).append($input);
+    //$(document.body).append($input);
     $input.on('keydown', input_keydown);
     $input.on('blur', input_blur);
     $input.on('change', input_change);
     $input.on('focus', input_focus);
-    
-    return this.each(function() {
-      var _this = $(this);
-      
-      _this.data(DATA_EDITABLE_OPTIONS, $.extend({}, defaultOptions, options, _this.data() ));
-
-      _this.addClass( "editable" );
-      _this.on("click", editable_click);
-      this.startEdit = function(){ return startEdit(_this); };
-      this.endEdit = function(){ return endEdit(_this); };
-      this.cancelEdit = function(){ return cancelEdit(_this); };
-      //console.log(this.element);
-      //this._refresh();
-    });
     
     function input_change(e){
       var opt = $input.data(DATA_EDITABLE_OPTIONS);
@@ -76,7 +64,8 @@ SOFTWARE.
       if(opt && opt.onchange) return opt.onchange(e);
       return true;
     };
-    
+
+
     function startEdit(editable){
       var $target = $(editable);
       $input.data(DATA_EDITABLE_INITIAL_VALUE, $target.text());
@@ -128,15 +117,12 @@ SOFTWARE.
         e.stopPropagation();
         e.cancelBubble=true;
         var $editable = $input.data(DATA_EDITABLE_SOURCE);
-        var group = $editable.data('editableGroup') || "";
-        var groupFilter = "";
-        if(group){
-          next = $(".editable[data-editable-group='"+ group +"']:gt("+$editable.index()+"):first");
-          //if(!next.length && opt.edtInfiniteNavigation) next = $(".editable[data-editable-group='"+ group +"']:first");
-        }else{
-          next = $(".editable:gt("+$editable.index()+"):first");
-          //if(!next.length && opt.edtInfiniteNavigation) next = $(".editable:first");
-        }
+        var index = $editable.data("edtIndex");
+        console.log(index);
+
+        next = $(".editable:gt("+(index)+"):first");
+        if(!next.length && opt.edtInfiniteNavigation) next = $(".editable:first");
+        
         if(next.length){
           $editable.get(0).endEdit();
           next.get(0).startEdit();
@@ -175,6 +161,24 @@ SOFTWARE.
       startEdit($target);
       
     }
+
+
+    var ret = this.each(function() {
+      var _this = $(this);
+      
+      _this.data(DATA_EDITABLE_OPTIONS, $.extend({}, _options, _this.data() ));
+
+      _this.addClass( "editable" );
+      _this.on("click", editable_click);
+      this.startEdit = function(){ return startEdit(_this); };
+      this.endEdit = function(){ return endEdit(_this); };
+      this.cancelEdit = function(){ return cancelEdit(_this); };
+      //console.log(this.element);
+      //this._refresh();
+    });
+
+    $(".editable").each(function(index, el) {$(el).data("edtIndex", index);});
+    return ret;
     
   }; 
   
