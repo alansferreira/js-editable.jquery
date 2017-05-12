@@ -101,7 +101,8 @@ SOFTWARE.
 
     function input_focus(e){};
     function input_keydown(e){
-      console.log('input_keydown(e)');
+      console.log(`input_keydown(${e})`);
+      if(e.cancelBubble) return false;
       
       var next = null;
       var opt = $input.data(DATA_EDITABLE_OPTIONS);
@@ -114,6 +115,7 @@ SOFTWARE.
       }
       
       if(e.keyCode==9){
+        e.preventDefault();
         e.stopPropagation();
         e.cancelBubble=true;
         var $editable = $input.data(DATA_EDITABLE_SOURCE);
@@ -126,9 +128,9 @@ SOFTWARE.
         if(next.length){
           endEdit($editable.get(0));
           startEdit(next.get(0));
-          return false;
         }
-        
+
+        return false;
       }
     }; 
     function updateInputPosition(){
@@ -172,16 +174,16 @@ SOFTWARE.
       this.startEdit = function(){ return startEdit(_this); };
       this.endEdit = function(){ return endEdit(_this); };
       this.cancelEdit = function(){ return cancelEdit(_this); };
-      //console.log(this.element);
-      //this._refresh();
+      
+      $(".editable").each(function(index, el) {$(el).data("edtIndex", index);});
     });
 
-    $(".editable").each(function(index, el) {$(el).data("edtIndex", index);});
     return ret;
     
   }; 
   
   $.fn.editable = editable;
-  $(".editable").editable();
-  
+  $(".editable").editable()
+
+  $(".editable").each(function(index, el) {$(el).data("edtIndex", index);});
 }(jQuery));  

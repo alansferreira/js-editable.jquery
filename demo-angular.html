@@ -12,9 +12,9 @@
     <div ng-controller="ctrl">
         <table>
             <tr ng-repeat="r in data.rows">
-                <td ng-editable edt-input="'.custom-input'" edt-auto-update="false"  edt-on-commit="commit">{{r.cell1}}</td>
-                <td ng-editable edt-input="'.custom-input'">{{r.cell2}}</td>
-                <td ng-editable edt-input="'.custom-input'">{{r.cell3}}</td>
+                <td ng-editable edt-value="r.cell1" edt-input="'.custom-input'" edt-auto-update="false"  edt-on-commit="commit">{{r.cell1}}</td>
+                <td ng-editable edt-value="r.cell2" edt-input="'.custom-input'">{{r.cell2}}</td>
+                <td ng-editable edt-value="r.cell3" edt-input="'.custom-input'">{{r.cell3}}</td>
             </tr>
         </table>
     </div>
@@ -45,6 +45,7 @@
                 ]
             };
             $scope.commit = function(){
+                console.log($scope.data);
                 console.log('commit-cell1');
             }
         });
