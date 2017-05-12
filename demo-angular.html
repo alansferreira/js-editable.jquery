@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./dist/js-editable.min.css" rel="stylesheet">
+</head>
+
+<body ng-app="app">
+    <div ng-controller="ctrl">
+        <table>
+            <tr ng-repeat="r in data.rows">
+                <td ng-editable edt-input="'.custom-input'" edt-auto-update="false"  edt-on-commit="commit">{{r.cell1}}</td>
+                <td ng-editable edt-input="'.custom-input'">{{r.cell2}}</td>
+                <td ng-editable edt-input="'.custom-input'">{{r.cell3}}</td>
+            </tr>
+        </table>
+    </div>
+    
+    <style>
+        .custom-input{
+            background-color: gray;
+        }
+    </style>
+    <input class="custom-input"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+    <!--<script src="./dist/js-editable.min.js"></script>-->
+    <script src="./js-editable.jquery.js"></script>
+    <script src="./js-editable.angular.js"></script>
+    
+    <script>
+        var app = angular.module('app', []);
+        registerEditableDirective(app);
+
+        var ctrl = app.controller('ctrl', function($scope){
+            $scope.data = {
+                rows: [
+                    {cell1:'cell11', cell2:'cell12', cell3:'cell13'},
+                    {cell1:'cell21', cell2:'cell22', cell3:'cell23'},
+                    {cell1:'cell31', cell2:'cell32', cell3:'cell33'},
+                ]
+            };
+            $scope.commit = function(){
+                console.log('commit-cell1');
+            }
+        });
+
+    </script>
+</body>
+
+</html>

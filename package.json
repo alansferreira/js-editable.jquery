@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/alansferreira/js-editable#readme",
   "dependencies": {
-    "jquery": "3.2.1"
+    "jquery": "3.2.1", 
+    "angular": "1.6.4"
   },
   "devDependencies": {
     "gulp": "3.9.1",

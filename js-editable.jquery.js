@@ -79,7 +79,7 @@ SOFTWARE.
       $input.select();
     };
     function endEdit(){
-
+      
       updateEditableSource(); 
       $input.hide();
 
@@ -124,8 +124,8 @@ SOFTWARE.
         if(!next.length && opt.edtInfiniteNavigation) next = $(".editable:first");
         
         if(next.length){
-          $editable.get(0).endEdit();
-          next.get(0).startEdit();
+          endEdit($editable.get(0));
+          startEdit(next.get(0));
           return false;
         }
         
@@ -161,7 +161,6 @@ SOFTWARE.
       startEdit($target);
       
     }
-
 
     var ret = this.each(function() {
       var _this = $(this);
