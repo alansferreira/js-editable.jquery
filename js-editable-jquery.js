@@ -101,7 +101,6 @@ SOFTWARE.
 
     function input_focus(e){};
     function input_keydown(e){
-      console.log(`input_keydown(${e})`);
       if(e.cancelBubble) return false;
       
       var next = null;
@@ -120,7 +119,6 @@ SOFTWARE.
         e.cancelBubble=true;
         var $editable = $input.data(DATA_EDITABLE_SOURCE);
         var index = $editable.data("edtIndex");
-        console.log(index);
 
         next = $(".editable:gt("+(index)+"):first");
         if(!next.length && opt.edtInfiniteNavigation) next = $(".editable:first");
@@ -152,7 +150,6 @@ SOFTWARE.
     };
     
     function input_blur(e){
-      console.log('input_blur(e)');
 
       endEdit();
     };
