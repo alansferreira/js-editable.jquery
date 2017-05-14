@@ -1,6 +1,6 @@
 {
   "name": "js-editable.jquery",
-  "version": "1.0.1-0",
+  "version": "1.0.1-1",
   "description": "dynamic editable html contents with jquery javascript",
   "main": "index.js",
   "scripts": {
