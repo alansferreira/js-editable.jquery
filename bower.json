@@ -1,8 +1,8 @@
 {
-  "name": "js-editable",
+  "name": "js-editable.jquery",
   "description": "dynamic editable html contents with jquery javascript",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/js-editable.min.js",
   "authors": [
     "Alan <alan.da.silva.ferreira@hotmail.com>"
   ],
@@ -16,7 +16,6 @@
     "tests"
   ], 
   "dependencies": {
-    "jquery": "latest", 
-    "angular": "latest"
+    "jquery": "latest"
   }
 }

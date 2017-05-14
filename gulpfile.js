@@ -6,7 +6,7 @@ var rename = require('gulp-rename');
 
 gulp.task('compress-js', function () {
   // returns a Node.js stream, but no handling of error messages
-  return gulp.src('./js-editable.js')
+  return gulp.src('./js-editable.jquery.js')
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('./dist'));
