@@ -4,6 +4,8 @@ var uglify = require('gulp-uglify');
 var cleancss = require('gulp-clean-css');
 var rename = require('gulp-rename');
 var bump = require('gulp-bump');
+var run = require('gulp-run');
+
 
 // Defined method of updating: 
 // Semantic 
@@ -29,4 +31,8 @@ gulp.task('compress-css', function () {
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('default', ['bump', 'compress-css', 'compress-js']);
+gulp.task('publish-on-npm', function(){
+  return run('npm publish').exec().pipe(gulp.dest('output'));
+});
+
+gulp.task('default', ['bump', 'compress-css', 'compress-js', 'publish-on-npm']);
