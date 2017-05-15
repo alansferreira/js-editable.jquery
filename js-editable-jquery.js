@@ -135,8 +135,8 @@ SOFTWARE.
         e.stopPropagation();
         e.cancelBubble=true;
         var index = $editable.data("edtIndex");
-
-        next = $(".editable:gt("+(index)+"):first");
+        
+        next = $(".editable:gt("+((e.shiftKey?-2:0) +index)+"):first");
         if(!next.length && opt.edtInfiniteNavigation) next = $(".editable:first");
         
         if(next.length){
