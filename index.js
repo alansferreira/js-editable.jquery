@@ -1,1 +1,9 @@
-if(require && module && module.exports) module.exports = require('./js-editable.jquery');
+try {
+    
+    if(!(require && module && module.exports)) return null;
+    
+    module.exports = require('./js-editable.jquery');
+    
+} catch (error) {
+    
+}
