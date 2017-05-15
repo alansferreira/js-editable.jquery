@@ -29,6 +29,7 @@ SOFTWARE.
    * @property {boolean}  edtAutoUpdate             - Automatic update source contents during change.
    * @property {boolean}  edtAutoMetrics            - Automatic update metrics of editor during edition.
    * @property {string}  edtInfiniteNavigation      - Automatic jump to first editable elemente when press 'tab key' and it arrives in the last element.
+   * @property {any} edtOnCommit                    - Commit event
    */
   var defaultOptions = {
     edtAutoUpdate: true, 
@@ -95,7 +96,7 @@ SOFTWARE.
       if($options.edtOnCommit) {
         var commit = eval($options.edtOnCommit);
         if (typeof commit == 'function') {
-            commit()
+            commit($editable, $input, $options);
         }
       }
     };
