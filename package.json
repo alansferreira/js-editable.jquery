@@ -1,10 +1,11 @@
 {
   "name": "js-editable.jquery",
-  "version": "1.2.2",
+  "version": "1.2.11",
   "description": "dynamic editable html contents with jquery javascript",
   "main": "index.js",
   "scripts": {
-    "build": "gulp"
+    "build": "gulp", 
+    "release": "npm publish"
   },
   "repository": {
     "type": "git",
