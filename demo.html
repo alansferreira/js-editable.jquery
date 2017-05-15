@@ -12,16 +12,16 @@
     <div id="div1">
         <table>
             <tr>
-                <td class='editable-cell' 
+                <td class='editable-cell-text' 
                     data-edt-auto-update="false" 
                     data-edt-on-commit="console.log('commit-cell1');">cell1</td>
-                <td class='editable-cell'>cell2</td>
-                <td class='editable-cell'>cell3</td>
+                <td class='editable-cell-check' data-edt-input="#custom-check">cell2</td>
+                <td class='editable-cell-select' data-edt-input="#custom-select">cell3</td>
             </tr>
             <tr>
-                <td class='editable-cell'>cell1</td>
-                <td class='editable-cell'>cell2</td>
-                <td class='editable-cell'>cell3</td>
+                <td class='editable-cell-text'>cell1</td>
+                <td class='editable-cell-check' data-edt-input="#custom-check">cell2</td>
+                <td class='editable-cell-select' data-edt-input="#custom-select">cell3</td>
             </tr>
         </table>
     </div>
@@ -31,14 +31,23 @@
             background-color: gray;
         }
     </style>
-    <input class="custom-input"/>
+    <input id="custom-input"/>
+    <input id="custom-check" type="checkbox" name="chk1" value="true"/>
+    <select id="custom-select">
+        <option value="v1">value 1</option>
+        <option value="v2">value 2</option>
+        <option value="v3">value 3</option>
+    </select>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!--<script src="./dist/js-editable.min.js"></script>-->
     <script src="./js-editable-jquery.js"></script>
     <script>
         $(function () {
-            $(".editable-cell").editable({edtInput: ".custom-input"});
+            $(".editable-cell-text").editable({edtInput: "#custom-input"});
+            $(".editable-cell-select").editable({edtInput: "#custom-select"});
+            $(".editable-cell-check").editable({edtInput: "#custom-check"});
         });
     </script>
 </body>

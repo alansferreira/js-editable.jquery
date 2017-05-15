@@ -50,17 +50,12 @@ SOFTWARE.
     
     var _options = $.extend({}, defaultOptions, options);
 
-    var $input = $(_options.edtInput);
-    
-    //$(document.body).append($input);
-    $input.on('keydown', input_keydown);
-    $input.on('blur', input_blur);
-    $input.on('change', input_change);
-    $input.on('focus', input_focus);
-    
     function input_change(e){
+      var $input = $(e.target);
+      
       var opt = $input.data(DATA_EDITABLE_OPTIONS);
-      if(opt && opt.edtAutoUpdate) updateEditableSource();
+      
+      if(opt && opt.edtAutoUpdate) updateEditableSource($input);
       if(opt && opt.onchange) return opt.onchange(e);
       return true;
     };
@@ -68,45 +63,66 @@ SOFTWARE.
 
     function startEdit(editable){
       var $target = $(editable);
+      var $options = $target.data(DATA_EDITABLE_OPTIONS);
+      var $input = $options.edtInput = $($options.edtInput);
+
+      
+      //$(document.body).append($input);
+      $input.on('keydown', input_keydown);
+      $input.on('blur', input_blur);
+      $input.on('change', input_change);
+      $input.on('focus', input_focus);
+
       $input.data(DATA_EDITABLE_INITIAL_VALUE, $target.text());
-      $input.data(DATA_EDITABLE_OPTIONS, $target.data(DATA_EDITABLE_OPTIONS));
+      $input.data(DATA_EDITABLE_OPTIONS, $options);
       $input.data(DATA_EDITABLE_SOURCE, $target);
       
-      updateInputPosition();
+      updateInputPosition($input);
       
       $input.val($target.text());
       $input.show();
+      $input.focus();
       $input.select();
     };
-    function endEdit(){
-      
-      updateEditableSource(); 
+    
+    function endEdit($editable){
+      var $options = $($editable).data(DATA_EDITABLE_OPTIONS);
+      var $input = $options.edtInput = $($options.edtInput);
+
+      updateEditableSource($input); 
       $input.hide();
 
-      var opt = $input.data(DATA_EDITABLE_OPTIONS);
-      if(opt.edtOnCommit) {
-        var commit = eval(opt.edtOnCommit);
+      if($options.edtOnCommit) {
+        var commit = eval($options.edtOnCommit);
         if (typeof commit == 'function') {
             commit()
         }
       }
     };
-    function cancelEdit(){
+    function cancelEdit($editable){
+      var $options = $($editable).data(DATA_EDITABLE_OPTIONS);
+      var $input = $options.edtInput = $($options.edtInput);
+
+
       var initialValue = $input.data(DATA_EDITABLE_INITIAL_VALUE);
       $input.hide();
 
       $input.val(initialValue);
-      updateEditableSource();
+      updateEditableSource($input);
     };
+
+
 
     function input_focus(e){};
     function input_keydown(e){
+      var $input = $(e.target);
+
       if(e.cancelBubble) return false;
       
       var next = null;
       var opt = $input.data(DATA_EDITABLE_OPTIONS);
-      if(opt && opt.edtAutoUpdate) updateEditableSource();
-      if(opt && opt.edtAutoMetrics) updateInputPosition();
+      if(opt && opt.edtAutoUpdate) updateEditableSource($input);
+      if(opt && opt.edtAutoMetrics) updateInputPosition($input);
       
       switch(e.keyCode){
         case 27: //ESCAPE
@@ -131,7 +147,7 @@ SOFTWARE.
         return false;
       }
     }; 
-    function updateInputPosition(){
+    function updateInputPosition($input){
       var $target = $input.data(DATA_EDITABLE_SOURCE);
       $input.css({
         position: 'absolute',
@@ -144,14 +160,15 @@ SOFTWARE.
       $input.width($target.width());
       $input.height($target.height());
     }
-    function updateEditableSource(){
+    function updateEditableSource($input){
       var $source = $input.data(DATA_EDITABLE_SOURCE);
       $source.html($input.val());
     };
     
     function input_blur(e){
-
-      endEdit();
+      var $input = $(e.target);
+      var $source = $input.data(DATA_EDITABLE_SOURCE);
+      endEdit($source);
     };
     
     function editable_click(e){
